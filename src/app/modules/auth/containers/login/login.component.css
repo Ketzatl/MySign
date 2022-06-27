@@ -1,0 +1,20 @@
+.login-body {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.login-card {
+  width: 25rem;
+}
+
+form-login {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.field {
+  display: block;
+  margin-bottom: 10px;
+}

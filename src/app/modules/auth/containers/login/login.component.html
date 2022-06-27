@@ -1,1 +1,22 @@
-<p>login works!</p>
+
+<div class="login-body">
+  <div class="login-card">
+    <p-card header="Connexion" >
+      <!-- <h5>Connexion</h5> -->
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate class="form-login">
+
+      <div class="field">
+        <label for="email" class="block">Email</label>
+        <input id="email" type="email" pInputText formControlName="email" style="width: 100%;" />
+      </div>
+
+      <div class="field">
+        <label for="password" class="block">Mot de passe</label>
+        <input id="password" type="password" pInputText formControlName="password" style="width: 100%;" />
+      </div>
+
+        <button type="submit" pButton>Se connecter</button>
+      </form>
+    </p-card>
+  </div>
+</div>
