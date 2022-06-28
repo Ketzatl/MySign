@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListModulesComponent } from './modules/list_modules/container/list_modules.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/modules',
+    pathMatch: 'full',
+  },
   {
     path: 'auth',
     loadChildren: () =>

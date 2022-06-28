@@ -1,3 +1,3 @@
 export interface TokenDto {
-  readonly token: string;
+  readonly access_token: string;
 }

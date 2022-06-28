@@ -23,13 +23,13 @@ export class AuthProcessingService {
 
   // Sauvegarde du token dans le session storage
   setSession(tokenDto: TokenDto): void {
-    sessionStorage.setItem('Token', tokenDto.token);
+    sessionStorage.setItem('Token', tokenDto.access_token);
     this.authStatus.next(true);
   }
 
   logout() {
     sessionStorage.clear();
     this.authStatus.next(false);
-    this.router.navigate(['']);
+    this.router.navigate(['/auth/login']);
   }
 }

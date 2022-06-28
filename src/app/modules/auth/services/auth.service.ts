@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { AuthProcessingService } from 'src/app/core/services/auth-processing.service';
+import { ApiDto } from 'src/app/shared/dto/api.dto';
 import { TokenDto } from 'src/app/shared/dto/token.dto';
 import { environment } from 'src/environments/environment';
 import { LoginDto } from '../dto/login.dto';
@@ -16,9 +17,13 @@ export class AuthService {
   ) {}
 
   // Connexion utilisateur
-  login(loginDto: LoginDto): Observable<TokenDto> {
+  login(loginDto: LoginDto): Observable<ApiDto<TokenDto>> {
     return this.httpClient
-      .post<TokenDto>(environment.apiUrl + '/auth/login', loginDto)
-      .pipe(tap((res: TokenDto) => this.authProcessService.setSession(res)));
+      .post<ApiDto<TokenDto>>(environment.apiUrl + '/auth/login', loginDto)
+      .pipe(
+        tap((res: ApiDto<TokenDto>) =>
+          this.authProcessService.setSession(res.data)
+        )
+      );
   }
 }
