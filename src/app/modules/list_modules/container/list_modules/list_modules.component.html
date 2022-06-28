@@ -1,0 +1,12 @@
+<h1 class="title">Liste des modules</h1>
+<div class="grid">
+  <div *ngFor="let module of modules" class="card flex align-items-center justify-content-center col-4">
+    <p-card header="{{ module.name }}" subheader="{{ module.session }}" styleClass="p-card-shadow">
+      <p>Etablissement : {{ module.place }}</p>
+      <p>du {{ module.start_at }} au {{ module.end_at }} </p>
+      <ng-template pTemplate="footer">
+          <p-button label="Détails" (click)="onModuleClick()"></p-button>
+      </ng-template>
+    </p-card>
+  </div>
+</div>
