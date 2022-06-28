@@ -7,6 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpReqInterceptor } from './core/interceptors/http-req.interceptor';
 
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -14,8 +17,10 @@ import { HttpReqInterceptor } from './core/interceptors/http-req.interceptor';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    ToastModule,
   ],
   providers: [
+    MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpReqInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
