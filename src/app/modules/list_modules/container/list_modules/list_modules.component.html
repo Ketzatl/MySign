@@ -2,10 +2,10 @@
 <div class="grid">
   <div *ngFor="let module of modules" class="card flex align-items-center justify-content-center col-4">
     <p-card header="{{ module.name }}" subheader="{{ module.session }}" styleClass="p-card-shadow">
-      <p>Etablissement : {{ module.place }}</p>
-      <p>du {{ module.start_at }} au {{ module.end_at }} </p>
+      <p>Etablissement : {{ module.city }}</p>
+      <p>Le {{ module.date }} à {{ module.start }} </p>
       <ng-template pTemplate="footer">
-          <p-button label="Détails" (click)="onModuleClick()"></p-button>
+          <p-button label="Détails" (click)="onModuleClick(module.id)"></p-button>
       </ng-template>
     </p-card>
   </div>

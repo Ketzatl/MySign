@@ -5,7 +5,7 @@ import { DetailsModuleComponent } from './container/details_module/details_modul
 
 const routes: Routes = [
   { path: '', component: ListModulesComponent },
-  { path: 'details', component: DetailsModuleComponent },
+  { path: 'details/:id', component: DetailsModuleComponent },
 ];
 
 @NgModule({
