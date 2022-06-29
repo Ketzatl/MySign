@@ -1,9 +1,9 @@
 <h1 class="title">Liste des modules</h1>
 <div class="grid">
   <div *ngFor="let module of modules" class="card flex align-items-center justify-content-center col-4">
-    <p-card header="{{ module.name }}" subheader="{{ module.session }}" styleClass="p-card-shadow">
-      <p>Etablissement : {{ module.city }}</p>
-      <p>Le {{ module.date }} à {{ module.start }} </p>
+    <p-card header="{{ module.name }}" subheader="{{ module.session.name }}" styleClass="p-card-shadow">
+      <p>Etablissement : {{ module.city.name }}</p>
+      <p>Le {{ module.date }} à {{ module.start_time }} </p>
       <ng-template pTemplate="footer">
           <p-button label="Détails" (click)="onModuleClick(module.id)"></p-button>
       </ng-template>

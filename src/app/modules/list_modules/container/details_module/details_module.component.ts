@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Module } from '../../types/module';
+import { Module } from '../../../../core/models/module.model';
 import { modules } from '../../mock-data/mock-module';
-import { Student } from '../../types/student';
+import { Student } from '../../../../core/models/student.model';
 
 @Component({
   selector: 'app-details-module',
@@ -21,7 +21,7 @@ export class DetailsModuleComponent implements OnInit {
     console.log(this.id);
     modules.forEach((module) => {
       if (module.id === this.id) {
-        this.targetModule = module;
+        // this.targetModule = module;
         this.students = module.student;
       }
     });

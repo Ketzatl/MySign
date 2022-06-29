@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:8055',
+  apiUrl: 'becole.lurnt.dev',
 };

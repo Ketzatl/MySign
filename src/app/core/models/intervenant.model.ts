@@ -1,5 +1,5 @@
 import { StateSignature } from './state-signature';
-import { User } from './user';
+import { User } from './users.model';
 
 export interface Intervenant {
   comment: string;
