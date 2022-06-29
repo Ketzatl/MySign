@@ -1,0 +1,22 @@
+<p-orderList [value]="students" [listStyle]="{'max-height':'30rem'}" header="Liste des stagiaires" filterBy="name" filterPlaceholder="Filter by name" [dragdrop]="true">
+  <ng-template let-student pTemplate="item">
+    <div class="student-item">
+      <div class="image-container">
+        <img src="../.../../../../../../assets/images/avatar.png" [alt]="student.user.first_name" class="product-image" />
+      </div>
+      <div class="student-list-detail">
+          <h5 class="mb-2">{{student.user.first_name}} {{student.user.last_name}}</h5>
+          <i class="pi pi-tag student-avatar-icon"></i>
+          <span class="student-email">{{student.user.email}}</span>
+      </div>
+      <div class="student-list-status">
+        <span [class]="'bg-primary mx-5 p-2 border-round product-badge status-' + student.state.label.toLowerCase()">{{student.state.label}}</span>
+      </div>
+      <div class="student-list-action">
+        <i class="p-2 py-2 pi pi-qrcode"></i>
+        <i class="p-2 py-2 pi pi-qrcode"></i>  <!-- TO DO => SWAP OF EMAIL ICON -->
+        <i class="p-2 py-2 pi pi-link"></i>
+      </div>
+    </div>
+  </ng-template>
+</p-orderList>
