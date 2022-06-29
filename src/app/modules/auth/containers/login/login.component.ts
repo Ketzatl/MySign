@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ConnectionProcessingService } from 'src/app/core/services/connection-processing.service';
 import { ToastProcessingService } from 'src/app/core/services/toast-processing.service';
 import { LoginDto } from '../../dto/login.dto';
 import { AuthService } from '../../services/auth.service';
@@ -19,12 +20,24 @@ export class LoginComponent implements OnInit, OnDestroy {
     private formBuider: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private toastProcessingService: ToastProcessingService
+    private toastProcessingService: ToastProcessingService,
+    private connectionProcessingService: ConnectionProcessingService
   ) {
     this.loginForm = this.initForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.connectionProcessingService.status().subscribe((b: boolean) => {
+      console.log(b);
+    });
+
+    // console.log(this.onlineStatusService.getStatus());
+
+    // this.onlineStatusService.status.subscribe((status: OnlineStatusType) => {
+    //   // Retrieve Online status Type
+    //   console.log(status);
+    // });
+  }
 
   initForm(): FormGroup {
     return this.formBuider.group({
