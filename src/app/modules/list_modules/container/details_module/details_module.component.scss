@@ -6,7 +6,11 @@
     }
 }
 
-.student-item {
+.send-signatures {
+    text-align: center;
+}
+
+.student-item, .intervenant-item {
   display: flex;
   align-items: center;
   padding: .5rem;
@@ -18,22 +22,37 @@
       margin-right: 1rem;
   }
 
-  .student-list-detail {
+  .student-list-detail, .intervenant-list-detail {
       flex: 1 1 0;
   }
 
-  .student-list-action {
+  .student-list-status, .intervenant-list-status {
+    span {
+        &.absent {
+            background-color: var(--red-500)!important;
+        }
+        &.expected {
+            background-color: var(--red-500)!important;
+        }
+        &.signed {
+            background-color: var(--red-500)!important;
+        }
+    }
+}
+
+
+  .student-list-action, .intervenant-list-action {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
   }
 
-  .student-avatar-icon {
+  .student-avatar-icon, .intervenant-avatar-icon {
       vertical-align: middle;
       margin-right: .5rem;
   }
 
-  .student-email {
+  .student-email, .intervenant-email {
       vertical-align: middle;
       line-height: 1;
   }
@@ -48,8 +67,14 @@
     text-align: center;
 }
 
+.split-section {
+    text-align: center;
+    width: 50vw;
+    border-color: var(--blue-500);
+}
+
 @media screen and (max-width: 576px) {
-  .student-item {
+  .student-item, .student-item {
       flex-wrap: wrap;
 
       .image-container {
