@@ -1,4 +1,10 @@
-<p-orderList [value]="students" [listStyle]="{'max-height':'30rem'}" header="Liste des stagiaires" filterBy="name" filterPlaceholder="Filter by name" [dragdrop]="true">
+<div class="detail-module bg-primary">
+  <h1>{{module.name}}</h1>
+  <h2>Session : {{module.session.name}}</h2>
+  <h3>{{module.city.name}} - {{module.duration}}</h3>
+</div>
+
+<p-orderList [value]="students" [listStyle]="{'max-height':'30rem'}" header="Liste des stagiaires" filterBy="directus_users_id.first_name" filterPlaceholder="Filter by first_name" [dragdrop]="true">
   <ng-template let-student pTemplate="item">
     <div class="student-item">
       <div class="image-container">
@@ -20,3 +26,9 @@
     </div>
   </ng-template>
 </p-orderList>
+
+<!-- <signature-pad #signature [options]="signaturePadOptions" (drawStart)="drawStart($event)" (drawEnd)="drawComplete($event)"></signature-pad> -->
+
+<div class="close-module py-3">
+  <button pButton type="button" class="border-transparent hover:border-transparent hover:bg-red-600 p-button-raised p-button-rounded">Cloturer le module</button>
+</div>
