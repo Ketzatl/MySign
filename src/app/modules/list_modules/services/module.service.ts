@@ -29,6 +29,8 @@ export class ModuleService {
 
   getModule(id: string): Observable<ApiDto<Module>> {
     const fields = `id, name, date, start_time, duration, city.name, state.label, session.name, 
+      intervenants.state.label, intervenants.signature,
+      intervenants.directus_users_id.last_name, intervenants.directus_users_id.first_name, intervenants.directus_users_id.email,
       students.state.label, students.signature,
       students.directus_users_id.last_name, students.directus_users_id.first_name, students.directus_users_id.email`;
     return this.httpClient.get<ApiDto<Module>>(
