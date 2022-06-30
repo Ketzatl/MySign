@@ -13,3 +13,7 @@ p-menubarsub{
 a.p-menubar-button{
   order: 3;
 }
+
+.p-orderlist-controls {
+  display: none !important;
+}

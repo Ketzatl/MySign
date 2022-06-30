@@ -1,5 +1,5 @@
-<h1 class="title">Liste des modules</h1>
-<div class="grid">
+<!-- <h1 class="title">Liste des modules</h1> -->
+<!-- <div class="grid">
   <div *ngFor="let module of modules" class="card flex align-items-center justify-content-center col-4">
     <p-card header="{{ module.name }}" subheader="{{ module.session.name }}" styleClass="p-card-shadow">
       <p>Etablissement : {{ module.city.name }}</p>
@@ -8,5 +8,22 @@
           <p-button label="Détails" (click)="onModuleClick(module.id)"></p-button>
       </ng-template>
     </p-card>
+  </div>
+</div> -->
+
+<div class="grid">
+  <div class="calendar">
+    <app-p-full-calendar *ngIf="events" [events]="events"></app-p-full-calendar>
+  </div>
+
+  <div class="list-modules">
+    <h3>Modules à venir</h3>
+    <p-orderList [value]="modules">
+      <ng-template let-module pTemplate="item" (click)="onModuleClick(module.id)">
+          <div>
+            <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{module.name}}</div>
+          </div>
+      </ng-template>
+  </p-orderList>
   </div>
 </div>

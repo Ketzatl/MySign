@@ -4,10 +4,28 @@ h1 {
   background-color: var(--primary-color);
 }
 
-.grid {
-  text-align: center;
+// .grid {
+//   text-align: center;
 
-  div.card {
-    padding: 1vh 0vh;
-  }
+//   div.card {
+//     padding: 1vh 0vh;
+//   }
+// }
+
+
+.grid {
+  margin: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, auto);
+  grid-gap: 10px;
+  grid-template-areas: 'calendar calendar list-modules'
+}
+
+.calendar {
+  grid-area: calendar;
+}
+
+.list-modules {
+  grid-area: list-modules;
 }
