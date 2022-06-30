@@ -6,23 +6,33 @@ import { ApiDto } from 'src/app/shared/dto/api.dto';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ModuleService {
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getModules(idUser: string): Observable<ApiDto<Module[]>> {
-    const fields = 'id, name, date, start_time, duration, city.name, state.label, session.name'
+    const fields =
+      'id, name, date, start_time, duration, city.name, state.label, session.name';
     const filter = {
       intervenants: {
         directus_users_id: {
-          _eq: '10c73948-5f9e-498f-9d90-4d89d0f3a407'
-        }
-      }
-    }
-    return this.httpClient.get<ApiDto<Module[]>>(environment.apiUrl + `/items/module?fields=${fields}&filter=${JSON.stringify(filter)}`);
+          _eq: '10c73948-5f9e-498f-9d90-4d89d0f3a407',
+        },
+      },
+    };
+    return this.httpClient.get<ApiDto<Module[]>>(
+      environment.apiUrl +
+        `/items/module?fields=${fields}&filter=${JSON.stringify(filter)}`
+    );
   }
 
-  // getModule(id: string): Observable<Module> {}
+  getModule(id: string): Observable<ApiDto<Module>> {
+    const fields = `id, name, date, start_time, duration, city.name, state.label, session.name, 
+      students.state.label, students.signature,
+      students.directus_users_id.last_name, students.directus_users_id.first_name, students.directus_users_id.email`;
+    return this.httpClient.get<ApiDto<Module>>(
+      environment.apiUrl + `/items/module/${id}?fields=${fields}`
+    );
+  }
 }

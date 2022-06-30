@@ -7,5 +7,5 @@ export interface Student {
   module: string;
   signature: string;
   state: StateSignature;
-  user: User;
+  directus_users_id: User;
 }

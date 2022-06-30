@@ -2,12 +2,12 @@
   <ng-template let-student pTemplate="item">
     <div class="student-item">
       <div class="image-container">
-        <img src="../.../../../../../../assets/images/avatar.png" [alt]="student.user.first_name" class="product-image" />
+        <img src="../.../../../../../../assets/images/avatar.png" [alt]="student.directus_users_id.first_name" class="product-image" />
       </div>
       <div class="student-list-detail">
-          <h5 class="mb-2">{{student.user.first_name}} {{student.user.last_name}}</h5>
+          <h5 class="mb-2">{{student.directus_users_id.first_name}} {{student.directus_users_id.last_name}}</h5>
           <i class="pi pi-tag student-avatar-icon"></i>
-          <span class="student-email">{{student.user.email}}</span>
+          <span class="student-email">{{student.directus_users_id.email}}</span>
       </div>
       <div class="student-list-status">
         <span [class]="'bg-primary mx-5 p-2 border-round product-badge status-' + student.state.label.toLowerCase()">{{student.state.label}}</span>
