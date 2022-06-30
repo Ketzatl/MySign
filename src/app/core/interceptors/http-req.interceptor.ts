@@ -4,12 +4,14 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
+import { AuthProcessingService } from '../services/auth-processing.service';
 
 @Injectable()
 export class HttpReqInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private authProcessingService: AuthProcessingService) {}
 
   intercept(
     req: HttpRequest<unknown>,
@@ -34,6 +36,14 @@ export class HttpReqInterceptor implements HttpInterceptor {
 
     req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
 
-    return next.handle(req);
+    return next.handle(req).pipe(
+      catchError((err: HttpErrorResponse) => {
+        if (err.status === 401) {
+          this.authProcessingService.logout();
+        }
+
+        return throwError(() => err);
+      })
+    );
   }
 }
