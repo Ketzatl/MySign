@@ -9,15 +9,18 @@ import { HttpReqInterceptor } from './core/interceptors/http-req.interceptor';
 
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { NavBarComponent } from './core/components/nav-bar/nav-bar.component';
+import { MenubarModule } from 'primeng/menubar';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, NavBarComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     ToastModule,
+    MenubarModule,
   ],
   providers: [
     MessageService,
