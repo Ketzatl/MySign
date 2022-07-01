@@ -16,18 +16,30 @@ h1 {
 .grid {
   margin: 8px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(1, auto);
   grid-gap: 10px;
-  grid-template-areas: 'calendar calendar list-modules'
+  grid-template-areas: 'calendar calendar' 'list-modules-a-venir list-modules-passer'
+}
+
+@media screen and (max-width: 650px) {
+  .grid {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, auto);
+    grid-template-areas: 'calendar' 'list-modules-a-venir' 'list-modules-passer';
+  }
 }
 
 .calendar {
   grid-area: calendar;
 }
 
-.list-modules {
-  grid-area: list-modules;
+.list-modules-a-venir {
+  grid-area: list-modules-a-venir;
+}
+
+.list-modules-passer {
+  grid-area: list-modules-passer;
 }
 
 .list-modules-title {

@@ -14,10 +14,11 @@ import * as dayjs from 'dayjs';
   styleUrls: ['./list_modules.component.scss'],
 })
 export class ListModulesComponent implements OnInit, OnDestroy {
-  modules: Module[] = [];
+  modulesAVenir: Module[] = [];
+  modulesPasser: Module[] = [];
   listSubscription: Subscription[] = [];
 
-  events!: EventSourceInput;
+  events: EventSourceInput = [];
 
   constructor(
     private router: Router,
@@ -35,11 +36,13 @@ export class ListModulesComponent implements OnInit, OnDestroy {
   getModule(idUser: string) {
     this.listSubscription.push(
       this.moduleService.getModules(idUser).subscribe((modules) => {
-        this.modules = modules.data.filter((module) => dayjs().isBefore(dayjs(`${module.date} ${module.start_time}`)));
+        this.modulesAVenir = modules.data.filter((module) => dayjs().isBefore(dayjs(`${module.date} ${module.start_time}`)));
+        this.modulesPasser = modules.data.filter((module) => dayjs().isAfter(dayjs(`${module.date} ${module.start_time}`)));
         this.events = modules.data.map((m) => {
           return {
             title: m.name,
             start: `${m.date} ${m.start_time}`,
+            // url: this.router.navigate(['modules', m.id]),
           };
         });
       })

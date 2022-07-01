@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CalendarOptions, EventSourceInput } from '@fullcalendar/angular';
 
 @Component({
@@ -10,7 +11,11 @@ export class PFullCalendarComponent implements OnInit {
   @Input() events: EventSourceInput = [];
 
   calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth',
+    initialView: 'dayGridWeek',
+    // dateClick: this.handleDateClick.bind(this),
+    // eventClick: (info) => this.handleDateClick(info.event.id),
+    height: 300,
+    locale: 'fr',
     weekends: false,
     eventTimeFormat: {
       hour: '2-digit',
@@ -20,9 +25,13 @@ export class PFullCalendarComponent implements OnInit {
     },
   };
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.calendarOptions.events = this.events;
+  }
+
+  handleDateClick(idModule: string) {
+    this.router.navigate(['modules', 'details', idModule]);
   }
 }

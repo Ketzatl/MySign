@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Intervenant } from 'src/app/core/models/intervenant.model';
 import { Module } from 'src/app/core/models/module.model';
+import { Session } from 'src/app/core/models/session.model';
 import { Student } from 'src/app/core/models/student.model';
 import { ApiDto } from 'src/app/shared/dto/api.dto';
 import { environment } from 'src/environments/environment';
@@ -14,7 +15,6 @@ export class ModuleService {
   constructor(private httpClient: HttpClient) {}
 
   getModules(idUser: string): Observable<ApiDto<Module[]>> {
-    console.log('id', idUser);
     const fields =
       'id, name, date, start_time, duration, city.name, state.label, session.name';
     const filter = {
@@ -22,10 +22,7 @@ export class ModuleService {
         directus_users_id: {
           _eq: idUser,
         },
-      },
-      // date: {
-      //   _gte: new Date().toISOString(),
-      // }
+      }
     };
 
     const sort = 'date, start_time';

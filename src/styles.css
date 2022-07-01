@@ -17,3 +17,13 @@ a.p-menubar-button{
 .p-orderlist-controls {
   display: none !important;
 }
+
+.modal-signature {
+  width: 70%;
+}
+
+@media screen and (max-width: 650px) {
+  .modal-signature {
+    width: 100%;
+  }
+}

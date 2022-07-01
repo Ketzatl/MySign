@@ -54,9 +54,11 @@ export class DetailsModuleComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
 
-    this.connectionProcessingService.status().subscribe((b: boolean) => {
-      this.isConnected = b;
-    });
+    this.listSubscription.push(
+      this.connectionProcessingService.status().subscribe((b: boolean) => {
+        this.isConnected = b;
+      })
+    );
 
     if (this.id) {
       this.listSubscription.push(
@@ -83,10 +85,10 @@ export class DetailsModuleComponent implements OnInit, OnDestroy {
   signatureIntervenant(intervenant: Intervenant) {
     const ref = this.dialogService.open(DialogSignatureComponent, {
       header: 'Signature',
-      width: '70%',
+      styleClass: 'modal-signature',
     });
 
-    ref.onClose.subscribe(async (result) => {
+    this.listSubscription.push(ref.onClose.subscribe(async (result) => {
       if (result) {
         // console.log(result);
         // intervenant.signature = result;
@@ -99,27 +101,27 @@ export class DetailsModuleComponent implements OnInit, OnDestroy {
         const intervenants = [...this.intervenants];
 
         if (this.isConnected) {
-          this.moduleService.updateIntervenant(updateIntervenant).subscribe(value => {
+          this.listSubscription.push(this.moduleService.updateIntervenant(updateIntervenant).subscribe(value => {
             
             intervenants[indexIntervenant] = { ...intervenants, ...value.data };
             this.intervenants = intervenants;
-          });
+          }));
         } else {
           await db.intervenants.add(updateIntervenant);
           intervenants[indexIntervenant] = { ...intervenants, ...updateIntervenant };
             this.intervenants = intervenants;
         }
       }
-    })
+    }))
   }
 
   signatureStudent(student: Student) {
     const ref = this.dialogService.open(DialogSignatureComponent, {
       header: 'Signature',
-      width: '70%',
+      styleClass: 'modal-signature',
     });
 
-    ref.onClose.subscribe(async (result) => {
+    this.listSubscription.push(ref.onClose.subscribe(async (result) => {
       if (result) {
         const updateStudent: Student = {
           id: student.id,
@@ -130,18 +132,18 @@ export class DetailsModuleComponent implements OnInit, OnDestroy {
         const students = [...this.students];
 
         if (this.isConnected) {
-          this.moduleService.updateStudent(updateStudent).subscribe(value => {
+          this.listSubscription.push(this.moduleService.updateStudent(updateStudent).subscribe(value => {
             
             students[indexStudent] = { ...student, ...value.data };
             this.students = students;
-          }); 
+          })); 
         } else {
           await db.students.add(updateStudent);
           students[indexStudent] = { ...student, ...updateStudent };
           this.students = students;
         }
       }
-    })
+    }))
   }
 
   ngOnDestroy(): void {

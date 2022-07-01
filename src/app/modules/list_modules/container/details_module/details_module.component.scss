@@ -80,7 +80,7 @@
     border-color: var(--blue-500);
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 650px) {
     .detail-module {
         flex-direction: column;
     }
@@ -98,3 +98,8 @@
       }
   }
 }
+
+.list-user {
+    margin: 8px;
+}
+

@@ -11,7 +11,7 @@
 </div>
 
 
-<div class="mt-5" >
+<div class="mt-5 list-user" >
   <p-orderList [value]="intervenants" [listStyle]="{'max-height':'30rem'}" header="Liste des intervenants" filterBy="directus_users_id.first_name" filterPlaceholder="Filter by first_name">
     <ng-template let-intervenant pTemplate="item">
       <div class="student-item">
@@ -39,7 +39,7 @@
 
 <hr class="mt-5 split-section" />
 
-<div class="mt-5" >
+<div class="mt-5 list-user" >
   <p-orderList [value]="students" [listStyle]="{'max-height':'30rem'}" header="Liste des stagiaires" filterBy="directus_users_id.first_name" filterPlaceholder="Filter by first_name">
     <ng-template let-student pTemplate="item">
       <div class="student-item">

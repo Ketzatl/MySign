@@ -13,12 +13,31 @@
 
 <div class="grid">
   <div class="calendar">
-    <app-p-full-calendar *ngIf="events" [events]="events"></app-p-full-calendar>
+    <app-p-full-calendar *ngIf="events" [events]="events" ></app-p-full-calendar>
   </div>
 
-  <div class="list-modules">
+  <div *ngIf="modulesAVenir.length > 0" class="list-modules-a-venir">
     <h3 class="list-modules-title">Modules à venir</h3>
-    <p-orderList [value]="modules" [listStyle]="{'min-height':'0px'}">
+    <p-orderList [value]="modulesAVenir" [listStyle]="{'min-height':'0px'}">
+      <ng-template let-module pTemplate="item">
+        <div class="module-item">
+          <div>
+            <div>
+              <div class="module-item-title">{{module.name}}</div>
+              <div>Le {{module.date | date: 'dd/MM/YYYY'}} à {{module.start_time}}</div>
+            </div>
+          </div>
+          <div class="product-list-action">
+            <button pButton (click)="onModuleClick(module.id)">Voir</button>
+          </div>
+        </div>
+      </ng-template>
+  </p-orderList>
+  </div>
+
+  <div *ngIf="modulesPasser.length > 0" class="list-modules-passer">
+    <h3 class="list-modules-title">Modules passé</h3>
+    <p-orderList [value]="modulesPasser" [listStyle]="{'min-height':'0px'}">
       <ng-template let-module pTemplate="item">
         <div class="module-item">
           <div>
