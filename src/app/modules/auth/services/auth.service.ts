@@ -13,7 +13,7 @@ import { LoginDto } from '../dto/login.dto';
 export class AuthService {
   constructor(
     private httpClient: HttpClient,
-    private authProcessService: AuthProcessingService
+    private authProcessService: AuthProcessingService,
   ) {}
 
   // Connexion utilisateur

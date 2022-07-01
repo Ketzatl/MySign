@@ -29,3 +29,19 @@ h1 {
 .list-modules {
   grid-area: list-modules;
 }
+
+.list-modules-title {
+  text-align: center;
+}
+
+.module-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem;
+  width: 100%;
+}
+
+.module-item-title {
+  font-weight: bold;
+}

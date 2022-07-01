@@ -1,10 +1,10 @@
 <div class="detail-module bg-primary">
-  <h1>{{module.name}}</h1>
-  <h2>Session : {{module.session.name}}</h2>
-  <h3>{{module.city.name}} - {{module.duration}}</h3>
+  <div>{{module.name}}</div>
+  <div>Session : {{module.session.name}}</div>
+  <div>{{module.city.name}} - {{module.duration}}</div>
 </div>
 
-<p-orderList [value]="students" [listStyle]="{'max-height':'30rem'}" header="Liste des stagiaires" filterBy="directus_users_id.first_name" filterPlaceholder="Filter by first_name" [dragdrop]="true">
+<p-orderList [value]="students" [listStyle]="{'max-height':'30rem'}" header="Liste des stagiaires" filterBy="directus_users_id.first_name" filterPlaceholder="Filter by first_name">
   <ng-template let-student pTemplate="item">
     <div class="student-item">
       <div class="image-container">

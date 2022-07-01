@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TokenDto } from 'src/app/shared/dto/token.dto';
+import { InitProcessingService } from './init-processing.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { TokenDto } from 'src/app/shared/dto/token.dto';
 export class AuthProcessingService {
   private authStatus = new BehaviorSubject<boolean>(false);
 
-  constructor(private readonly router: Router) {}
+  constructor(private readonly router: Router, private readonly initProcessingService: InitProcessingService) {}
 
   // Vérifie si l'utilisateur est connecté (si il a un token)
   isAuth(): Observable<boolean> {
@@ -30,6 +31,7 @@ export class AuthProcessingService {
   logout() {
     sessionStorage.clear();
     this.authStatus.next(false);
+    this.initProcessingService.clearData();
     this.router.navigate(['/auth/login']);
   }
 }

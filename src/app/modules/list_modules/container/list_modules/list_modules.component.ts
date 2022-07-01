@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { ModuleService } from '../../services/module.service';
 import { Subscription } from 'rxjs';
 import { EventSourceInput } from '@fullcalendar/angular';
+import { InitProcessingService } from 'src/app/core/services/init-processing.service';
+import { User } from 'src/app/core/models/users.model';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-list-modules',
@@ -16,12 +19,23 @@ export class ListModulesComponent implements OnInit, OnDestroy {
 
   events!: EventSourceInput;
 
-  constructor(private router: Router, private moduleService: ModuleService) {}
+  constructor(
+    private router: Router,
+    private moduleService: ModuleService,
+    private readonly initProcessingService: InitProcessingService
+  ) {
+    
+  }
 
   ngOnInit() {
+    this.getModule(this.initProcessingService.idUser);
+  }
+
+
+  getModule(idUser: string) {
     this.listSubscription.push(
-      this.moduleService.getModules('1').subscribe((modules) => {
-        this.modules = modules.data;
+      this.moduleService.getModules(idUser).subscribe((modules) => {
+        this.modules = modules.data.filter((module) => dayjs().isBefore(dayjs(`${module.date} ${module.start_time}`)));
         this.events = modules.data.map((m) => {
           return {
             title: m.name,

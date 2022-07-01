@@ -12,18 +12,24 @@ export class ModuleService {
   constructor(private httpClient: HttpClient) {}
 
   getModules(idUser: string): Observable<ApiDto<Module[]>> {
+    console.log('id', idUser);
     const fields =
       'id, name, date, start_time, duration, city.name, state.label, session.name';
     const filter = {
       intervenants: {
         directus_users_id: {
-          _eq: '10c73948-5f9e-498f-9d90-4d89d0f3a407',
+          _eq: idUser,
         },
       },
+      // date: {
+      //   _gte: new Date().toISOString(),
+      // }
     };
+
+    const sort = 'date, start_time';
     return this.httpClient.get<ApiDto<Module[]>>(
       environment.apiUrl +
-        `/items/module?fields=${fields}&filter=${JSON.stringify(filter)}`
+        `/items/module?fields=${fields}&filter=${JSON.stringify(filter)}&sort=${sort}`
     );
   }
 

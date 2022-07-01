@@ -17,12 +17,20 @@
   </div>
 
   <div class="list-modules">
-    <h3>Modules à venir</h3>
-    <p-orderList [value]="modules">
-      <ng-template let-module pTemplate="item" (click)="onModuleClick(module.id)">
+    <h3 class="list-modules-title">Modules à venir</h3>
+    <p-orderList [value]="modules" [listStyle]="{'min-height':'0px'}">
+      <ng-template let-module pTemplate="item">
+        <div class="module-item">
           <div>
-            <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{module.name}}</div>
+            <div>
+              <div class="module-item-title">{{module.name}}</div>
+              <div>Le {{module.date | date: 'dd/MM/YYYY'}} à {{module.start_time}}</div>
+            </div>
           </div>
+          <div class="product-list-action">
+            <button pButton (click)="onModuleClick(module.id)">Voir</button>
+          </div>
+        </div>
       </ng-template>
   </p-orderList>
   </div>
