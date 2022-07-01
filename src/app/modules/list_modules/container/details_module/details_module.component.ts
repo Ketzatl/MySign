@@ -6,6 +6,10 @@ import { ModuleService } from '../../services/module.service';
 import { Subscription } from 'rxjs';
 import { SignaturePadComponent } from '@almothafar/angular-signature-pad';
 import { Intervenant } from 'src/app/core/models/intervenant.model';
+import { DialogService } from 'primeng/dynamicdialog';
+import { DialogSignatureComponent } from '../../components/dialog-signature/dialog-signature.component';
+import { ConnectionProcessingService } from 'src/app/core/services/connection-processing.service';
+import { db } from 'src/app/core/config/db';
 // import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 interface StateModuleAction {
@@ -28,23 +32,31 @@ export class DetailsModuleComponent implements OnInit, OnDestroy {
 
   stateModule!: StateModuleAction;
 
-  @ViewChild('signature')
-  public signaturePad!: SignaturePadComponent;
+  isConnected: boolean = true;
 
-  public signaturePadOptions = {
-    // passed through to szimek/signature_pad constructor
-    minWidth: 5,
-    canvasWidth: 500,
-    canvasHeight: 300,
-  };
+  // @ViewChild('signature')
+  // public signaturePad!: SignaturePadComponent;
+
+  // public signaturePadOptions = {
+  //   // passed through to szimek/signature_pad constructor
+  //   minWidth: 5,
+  //   canvasWidth: 500,
+  //   canvasHeight: 300,
+  // };
 
   constructor(
     private route: ActivatedRoute,
-    private moduleService: ModuleService
+    private moduleService: ModuleService,
+    public dialogService: DialogService,
+    private connectionProcessingService: ConnectionProcessingService,
   ) {}
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
+
+    this.connectionProcessingService.status().subscribe((b: boolean) => {
+      this.isConnected = b;
+    });
 
     if (this.id) {
       this.listSubscription.push(
@@ -68,48 +80,68 @@ export class DetailsModuleComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngAfterViewInit() {
-    console.log('slt');
-    this.appendCss();
-    // this.signaturePad is now available
-    this.signaturePad.set('minWidth', 5); // set szimek/signature_pad options at runtime
-    this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
-    console.log('slt');
-  }
+  signatureIntervenant(intervenant: Intervenant) {
+    const ref = this.dialogService.open(DialogSignatureComponent, {
+      header: 'Signature',
+      width: '70%',
+    });
 
-  drawComplete(event: MouseEvent | Touch) {
-    // will be notified of szimek/signature_pad's onEnd event
-    console.log('Completed drawing', event);
-    console.log(this.signaturePad.toDataURL());
-  }
+    ref.onClose.subscribe(async (result) => {
+      if (result) {
+        // console.log(result);
+        // intervenant.signature = result;
+        const updateIntervenant: Intervenant = {
+          id: intervenant.id,
+          state: { code: 'SIGN' },
+        } 
 
-  drawStart(event: MouseEvent | Touch) {
-    // will be notified of szimek/signature_pad's onBegin event
-    console.log('Start drawing', event);
-  }
+        let indexIntervenant: number = this.intervenants.findIndex((s) => s.id === intervenant.id);
+        const intervenants = [...this.intervenants];
 
-  appendCss() {
-    const div = document.getElementById('state-signature');
-    if (div) {
-      const stateSignature = div.textContent;
-      switch (stateSignature) {
-        case 'Absent':
-          console.log('absent test');
-          div.classList.add('absent');
-          break;
-
-        case 'Attendu':
-          div.classList.add('expected');
-          break;
-
-        case 'Signé':
-          div.classList.add('signed');
-          break;
-
-        default:
-          break;
+        if (this.isConnected) {
+          this.moduleService.updateIntervenant(updateIntervenant).subscribe(value => {
+            
+            intervenants[indexIntervenant] = { ...intervenants, ...value.data };
+            this.intervenants = intervenants;
+          });
+        } else {
+          await db.intervenants.add(updateIntervenant);
+          intervenants[indexIntervenant] = { ...intervenants, ...updateIntervenant };
+            this.intervenants = intervenants;
+        }
       }
-    }
+    })
+  }
+
+  signatureStudent(student: Student) {
+    const ref = this.dialogService.open(DialogSignatureComponent, {
+      header: 'Signature',
+      width: '70%',
+    });
+
+    ref.onClose.subscribe(async (result) => {
+      if (result) {
+        const updateStudent: Student = {
+          id: student.id,
+          state: { code: 'SIGN' },
+        }
+
+        let indexStudent: number = this.students.findIndex((s) => s.id === student.id);
+        const students = [...this.students];
+
+        if (this.isConnected) {
+          this.moduleService.updateStudent(updateStudent).subscribe(value => {
+            
+            students[indexStudent] = { ...student, ...value.data };
+            this.students = students;
+          }); 
+        } else {
+          await db.students.add(updateStudent);
+          students[indexStudent] = { ...student, ...updateStudent };
+          this.students = students;
+        }
+      }
+    })
   }
 
   ngOnDestroy(): void {

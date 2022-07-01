@@ -1,3 +1,4 @@
+<div *ngIf="module">
 <div class="detail-module bg-primary">
   <div>{{module.name}}</div>
   <div>Session : {{module.session.name}}</div>
@@ -11,9 +12,9 @@
 
 
 <div class="mt-5" >
-  <p-orderList [value]="intervenants" [listStyle]="{'max-height':'30rem'}" header="Liste des intervenants" filterBy="directus_users_id.first_name" filterPlaceholder="Filter by first_name" [dragdrop]="true">
+  <p-orderList [value]="intervenants" [listStyle]="{'max-height':'30rem'}" header="Liste des intervenants" filterBy="directus_users_id.first_name" filterPlaceholder="Filter by first_name">
     <ng-template let-intervenant pTemplate="item">
-      <div class="intervenant-item">
+      <div class="student-item">
         <div class="image-container">
           <img src="../.../../../../../../assets/images/avatar.png" [alt]="intervenant.directus_users_id.first_name" class="product-image" />
         </div>
@@ -23,7 +24,8 @@
             <span class="intervenant-email">{{intervenant.directus_users_id.email}}</span>
         </div>
         <div class="intervenant-list-status">
-          <span id="state-signature" [class]="'bg-primary mx-5 p-2 border-round product-badge status-' + intervenant.state.label.toLowerCase()">{{intervenant.state.label}}</span>
+          <!-- <span id="state-signature" [class]="'bg-primary mx-5 p-2 border-round product-badge status-' + intervenant.state.label.toLowerCase()">{{intervenant.state.label}}</span> -->
+          <button type="button" class="mx-5" (click)="signatureIntervenant(intervenant)" pButton label="Signé" [disabled]="intervenant.state.code !== 'ATT'"></button>
         </div>
         <div class="intervenant-list-action">
           <i class="p-2 py-2 pi pi-qrcode"></i>
@@ -38,7 +40,7 @@
 <hr class="mt-5 split-section" />
 
 <div class="mt-5" >
-  <p-orderList [value]="students" [listStyle]="{'max-height':'30rem'}" header="Liste des stagiaires" filterBy="directus_users_id.first_name" filterPlaceholder="Filter by first_name" [dragdrop]="true">
+  <p-orderList [value]="students" [listStyle]="{'max-height':'30rem'}" header="Liste des stagiaires" filterBy="directus_users_id.first_name" filterPlaceholder="Filter by first_name">
     <ng-template let-student pTemplate="item">
       <div class="student-item">
         <div class="image-container">
@@ -50,7 +52,8 @@
             <span class="student-email">{{student.directus_users_id.email}}</span>
         </div>
         <div class="student-list-status">
-          <span id="state-signature" [class]="'bg-primary mx-5 p-2 border-round product-badge status-' + student.state.label.toLowerCase()">{{student.state.label}}</span>
+          <!-- <span id="state-signature" [class]="'bg-primary mx-5 p-2 border-round product-badge status-' + student.state.label.toLowerCase()">{{student.state.label}}</span> -->
+          <button type="button" class="mx-5" (click)="signatureStudent(student)" pButton label="Signé" [disabled]="student.state.code !== 'ATT'"></button>
         </div>
         <div class="student-list-action">
           <i class="p-2 py-2 pi pi-qrcode"></i>
@@ -61,7 +64,7 @@
     </ng-template>
   </p-orderList>
 </div>
-
+</div>
 <!-- <signature-pad #signature [options]="signaturePadOptions" (drawStart)="drawStart($event)" (drawEnd)="drawComplete($event)"></signature-pad> -->
 
 <!-- <div class="close-module py-3">

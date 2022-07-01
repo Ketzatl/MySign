@@ -13,6 +13,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { PFullCalendarComponent } from './components/p-full-calendar/p-full-calendar.component';
+import {DialogService, DynamicDialogModule} from 'primeng/dynamicdialog';
+import { DialogSignatureComponent } from './components/dialog-signature/dialog-signature.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -21,7 +23,7 @@ FullCalendarModule.registerPlugins([
 ]);
 
 @NgModule({
-  declarations: [ListModulesComponent, DetailsModuleComponent, PFullCalendarComponent],
+  declarations: [ListModulesComponent, DetailsModuleComponent, PFullCalendarComponent, DialogSignatureComponent],
   imports: [
     ButtonModule,
     CardModule,
@@ -31,6 +33,9 @@ FullCalendarModule.registerPlugins([
     ReactiveFormsModule,
     AngularSignaturePadModule,
     FullCalendarModule,
+    DynamicDialogModule
   ],
+  providers: [DialogService],
+  entryComponents: [DialogSignatureComponent]
 })
 export class ListModules {}

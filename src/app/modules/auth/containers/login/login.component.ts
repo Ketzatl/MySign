@@ -1,12 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { empty, Observable, Subscription, switchMap } from 'rxjs';
-import { User } from 'src/app/core/models/users.model';
-import { ConnectionProcessingService } from 'src/app/core/services/connection-processing.service';
+import { Subscription } from 'rxjs';
 import { InitProcessingService } from 'src/app/core/services/init-processing.service';
 import { ToastProcessingService } from 'src/app/core/services/toast-processing.service';
-import { ApiDto } from 'src/app/shared/dto/api.dto';
 import { LoginDto } from '../../dto/login.dto';
 import { AuthService } from '../../services/auth.service';
 
@@ -24,23 +21,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private toastProcessingService: ToastProcessingService,
-    private connectionProcessingService: ConnectionProcessingService,
     private initProcessingService: InitProcessingService
   ) {
     this.loginForm = this.initForm();
   }
 
   ngOnInit(): void {
-    this.connectionProcessingService.status().subscribe((b: boolean) => {
-      console.log(b);
-    });
-
-    // console.log(this.onlineStatusService.getStatus());
-
-    // this.onlineStatusService.status.subscribe((status: OnlineStatusType) => {
-    //   // Retrieve Online status Type
-    //   console.log(status);
-    // });
   }
 
   initForm(): FormGroup {

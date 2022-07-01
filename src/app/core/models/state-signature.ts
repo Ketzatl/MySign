@@ -1,4 +1,4 @@
 export interface StateSignature {
-  code: string;
-  label: string;
+  code?: string;
+  label?: string;
 }

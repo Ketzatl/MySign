@@ -81,6 +81,9 @@
 }
 
 @media screen and (max-width: 576px) {
+    .detail-module {
+        flex-direction: column;
+    }
   .student-item, .student-item {
       flex-wrap: wrap;
 

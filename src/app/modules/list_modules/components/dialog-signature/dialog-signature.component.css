@@ -1,0 +1,8 @@
+signature-pad {
+  background-color: transparent;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}
