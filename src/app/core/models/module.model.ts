@@ -9,7 +9,7 @@ export interface Module {
   date: string;
   duration: string;
   id: string;
-  intervenants: Intervenant;
+  intervenants: Array<Intervenant>;
   name: string;
   session: Session;
   start_time: string;

@@ -4,31 +4,66 @@
   <div>{{module.city.name}} - {{module.duration}}</div>
 </div>
 
-<p-orderList [value]="students" [listStyle]="{'max-height':'30rem'}" header="Liste des stagiaires" filterBy="directus_users_id.first_name" filterPlaceholder="Filter by first_name">
-  <ng-template let-student pTemplate="item">
-    <div class="student-item">
-      <div class="image-container">
-        <img src="../.../../../../../../assets/images/avatar.png" [alt]="student.directus_users_id.first_name" class="product-image" />
+<div class="mt-5 send-signatures">
+  <button pButton pRipple type="button" label="{{stateModule.state}}" class="mx-2 p-button-rounded"></button>
+  <button pButton pRipple type="button" label="{{stateModule.action}}" class="mx-2 p-button-rounded"></button>
+</div>
+
+
+<div class="mt-5" >
+  <p-orderList [value]="intervenants" [listStyle]="{'max-height':'30rem'}" header="Liste des intervenants" filterBy="directus_users_id.first_name" filterPlaceholder="Filter by first_name" [dragdrop]="true">
+    <ng-template let-intervenant pTemplate="item">
+      <div class="intervenant-item">
+        <div class="image-container">
+          <img src="../.../../../../../../assets/images/avatar.png" [alt]="intervenant.directus_users_id.first_name" class="product-image" />
+        </div>
+        <div class="intervenant-list-detail">
+            <h5 class="mb-2">{{intervenant.directus_users_id.first_name}} {{intervenant.directus_users_id.last_name}}</h5>
+            <i class="pi pi-tag intervenant-avatar-icon"></i>
+            <span class="intervenant-email">{{intervenant.directus_users_id.email}}</span>
+        </div>
+        <div class="intervenant-list-status">
+          <span id="state-signature" [class]="'bg-primary mx-5 p-2 border-round product-badge status-' + intervenant.state.label.toLowerCase()">{{intervenant.state.label}}</span>
+        </div>
+        <div class="intervenant-list-action">
+          <i class="p-2 py-2 pi pi-qrcode"></i>
+          <i class="p-2 py-2 pi pi-qrcode"></i> <!-- TO DO => SWAP OF EMAIL ICON -->
+          <i class="p-2 py-2 pi pi-link"></i>
+        </div>
       </div>
-      <div class="student-list-detail">
-          <h5 class="mb-2">{{student.directus_users_id.first_name}} {{student.directus_users_id.last_name}}</h5>
-          <i class="pi pi-tag student-avatar-icon"></i>
-          <span class="student-email">{{student.directus_users_id.email}}</span>
+    </ng-template>
+  </p-orderList>
+</div>
+
+<hr class="mt-5 split-section" />
+
+<div class="mt-5" >
+  <p-orderList [value]="students" [listStyle]="{'max-height':'30rem'}" header="Liste des stagiaires" filterBy="directus_users_id.first_name" filterPlaceholder="Filter by first_name" [dragdrop]="true">
+    <ng-template let-student pTemplate="item">
+      <div class="student-item">
+        <div class="image-container">
+          <img src="../.../../../../../../assets/images/avatar.png" [alt]="student.directus_users_id.first_name" class="product-image" />
+        </div>
+        <div class="student-list-detail">
+            <h5 class="mb-2">{{student.directus_users_id.first_name}} {{student.directus_users_id.last_name}}</h5>
+            <i class="pi pi-tag student-avatar-icon"></i>
+            <span class="student-email">{{student.directus_users_id.email}}</span>
+        </div>
+        <div class="student-list-status">
+          <span id="state-signature" [class]="'bg-primary mx-5 p-2 border-round product-badge status-' + student.state.label.toLowerCase()">{{student.state.label}}</span>
+        </div>
+        <div class="student-list-action">
+          <i class="p-2 py-2 pi pi-qrcode"></i>
+          <i class="p-2 py-2 pi pi-qrcode"></i>  <!-- TO DO => SWAP OF EMAIL ICON -->
+          <i class="p-2 py-2 pi pi-link"></i>
+        </div>
       </div>
-      <div class="student-list-status">
-        <span [class]="'bg-primary mx-5 p-2 border-round product-badge status-' + student.state.label.toLowerCase()">{{student.state.label}}</span>
-      </div>
-      <div class="student-list-action">
-        <i class="p-2 py-2 pi pi-qrcode"></i>
-        <i class="p-2 py-2 pi pi-qrcode"></i>  <!-- TO DO => SWAP OF EMAIL ICON -->
-        <i class="p-2 py-2 pi pi-link"></i>
-      </div>
-    </div>
-  </ng-template>
-</p-orderList>
+    </ng-template>
+  </p-orderList>
+</div>
 
 <!-- <signature-pad #signature [options]="signaturePadOptions" (drawStart)="drawStart($event)" (drawEnd)="drawComplete($event)"></signature-pad> -->
 
-<div class="close-module py-3">
+<!-- <div class="close-module py-3">
   <button pButton type="button" class="border-transparent hover:border-transparent hover:bg-red-600 p-button-raised p-button-rounded">Cloturer le module</button>
-</div>
+</div> -->

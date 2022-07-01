@@ -5,8 +5,13 @@ import { Student } from '../../../../core/models/student.model';
 import { ModuleService } from '../../services/module.service';
 import { Subscription } from 'rxjs';
 import { SignaturePadComponent } from '@almothafar/angular-signature-pad';
+import { Intervenant } from 'src/app/core/models/intervenant.model';
 // import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
+interface StateModuleAction {
+  state: string;
+  action: string;
+}
 @Component({
   selector: 'app-details-module',
   templateUrl: './details_module.component.html',
@@ -16,8 +21,12 @@ export class DetailsModuleComponent implements OnInit, OnDestroy {
   id: string | null | undefined;
   module!: Module;
   students!: Student[];
+  intervenants!: Intervenant[];
   listSubscription: Subscription[] = [];
+  // stateSignature: string;
   // faEnvelope = faEnvelope;
+
+  stateModule!: StateModuleAction;
 
   @ViewChild('signature')
   public signaturePad!: SignaturePadComponent;
@@ -42,15 +51,30 @@ export class DetailsModuleComponent implements OnInit, OnDestroy {
         this.moduleService.getModule(this.id).subscribe((module) => {
           this.module = module.data;
           this.students = module.data.students;
+          this.intervenants = module.data.intervenants;
+          console.log(this.intervenants);
+          let action;
+
+          module.data.state.label === 'Planifié'
+            ? (action = 'Démarrer le module')
+            : (action = 'Envoyer les signatures');
+
+          this.stateModule = {
+            state: module.data.state.label,
+            action,
+          };
         })
       );
     }
   }
 
   ngAfterViewInit() {
+    console.log('slt');
+    this.appendCss();
     // this.signaturePad is now available
     this.signaturePad.set('minWidth', 5); // set szimek/signature_pad options at runtime
     this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
+    console.log('slt');
   }
 
   drawComplete(event: MouseEvent | Touch) {
@@ -62,6 +86,30 @@ export class DetailsModuleComponent implements OnInit, OnDestroy {
   drawStart(event: MouseEvent | Touch) {
     // will be notified of szimek/signature_pad's onBegin event
     console.log('Start drawing', event);
+  }
+
+  appendCss() {
+    const div = document.getElementById('state-signature');
+    if (div) {
+      const stateSignature = div.textContent;
+      switch (stateSignature) {
+        case 'Absent':
+          console.log('absent test');
+          div.classList.add('absent');
+          break;
+
+        case 'Attendu':
+          div.classList.add('expected');
+          break;
+
+        case 'Signé':
+          div.classList.add('signed');
+          break;
+
+        default:
+          break;
+      }
+    }
   }
 
   ngOnDestroy(): void {
