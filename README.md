@@ -1,27 +1,44 @@
-# SoWeSignV2
+# MySign
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
+## Démarer avec docker (pour la production)
 
-## Development server
+### Pré-requis
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- docker
+- docker-compose
 
-## Code scaffolding
+### Commandes
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Il faut être à la racine du projet pour lancer les commandes
 
-## Build
+- Lancer le client : `docker-compose up -d` <br>
+  puis aller à l'url http://localhost:4200
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Arrêter : `docker-compose down`
+- Arrêter et supprimer l'image at les volumes associé : `docker-compose down -v --rmi all`
 
-## Running unit tests
+---
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Démarer sans docker (pour le développement)
 
-## Running end-to-end tests
+### Pré-requis
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- nodeJs 16
+- npm
 
-## Further help
+### Installation
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Il faut être à la racine du projet pour lancer les commandes
+
+- Installation des dépandances : `npm install`
+
+### Execution
+
+Pour executer le projet : `ng serve --open`
+
+Normalement le navigateur va directement s'ouvrir sur la bonne url, si ce n'est pas le cas voici l'url à entrer : http://localhost:4200
+Le projet s'execute sur le port **_4200_**
+
+### Test
+
+à faire
