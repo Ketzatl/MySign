@@ -34,7 +34,7 @@ Il faut être à la racine du projet pour lancer les commandes
 
 ### Execution
 
-Pour executer le projet : `ng serve --open`
+Pour executer le projet : `ng serve --open` (ou `npm run start` si on a pas la cli d'angular)
 
 Normalement le navigateur va directement s'ouvrir sur la bonne url, si ce n'est pas le cas voici l'url à entrer : http://localhost:4200
 Le projet s'execute sur le port **_4200_**
