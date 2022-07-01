@@ -28,6 +28,7 @@ export class PFullCalendarComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+    console.log(this.events);
     this.calendarOptions.events = this.events;
   }
 

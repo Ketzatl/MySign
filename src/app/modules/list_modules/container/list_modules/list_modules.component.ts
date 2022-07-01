@@ -18,26 +18,28 @@ export class ListModulesComponent implements OnInit, OnDestroy {
   modulesPasser: Module[] = [];
   listSubscription: Subscription[] = [];
 
-  events: EventSourceInput = [];
+  events!: EventSourceInput;
 
   constructor(
     private router: Router,
     private moduleService: ModuleService,
     private readonly initProcessingService: InitProcessingService
-  ) {
-    
-  }
+  ) {}
 
   ngOnInit() {
     this.getModule(this.initProcessingService.idUser);
   }
 
-
   getModule(idUser: string) {
     this.listSubscription.push(
       this.moduleService.getModules(idUser).subscribe((modules) => {
-        this.modulesAVenir = modules.data.filter((module) => dayjs().isBefore(dayjs(`${module.date} ${module.start_time}`)));
-        this.modulesPasser = modules.data.filter((module) => dayjs().isAfter(dayjs(`${module.date} ${module.start_time}`)));
+        this.modulesAVenir = modules.data.filter((module) =>
+          dayjs().isBefore(dayjs(`${module.date} ${module.start_time}`))
+        );
+        this.modulesPasser = modules.data.filter((module) =>
+          dayjs().isAfter(dayjs(`${module.date} ${module.start_time}`))
+        );
+        console.log();
         this.events = modules.data.map((m) => {
           return {
             title: m.name,
